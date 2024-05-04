@@ -29,7 +29,7 @@ end
 
 function M.restart()
     M.prepare()
-    local restart_command = "docker restart nvim-llama"
+    local restart_command = "sudo docker restart nvim-llama"
 
     local handle, err = io.popen(restart_command)
     local result = handle:read("*a")
@@ -42,7 +42,7 @@ end
 
 function M.start()
     M.prepare()
-    local start_command = "docker run -d -p 11434:11434 -v " .. home .. "/.ollama:/root/.ollama --name nvim-llama ollama/ollama"
+    local start_command = "sudo docker run -d -p 11434:11434 -v " .. home .. "/.ollama:/root/.ollama --name nvim-llama ollama/ollama"
     local handle, err = io.popen(start_command)
     local result = handle:read("*a")
     handle:close()
@@ -53,11 +53,11 @@ function M.start()
 end
 
 function M.run(model)
-    return "docker exec -it nvim-llama ollama run " .. model
+    return "sudo docker exec -it nvim-llama ollama run " .. model
 end
 
 function M.list()
-    return "docker exec -it nvim-llama ollama list"
+    return "sudo docker exec -it nvim-llama ollama list"
 end
 
 return M
